@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs')
 const client = require('cheerio-httpcli')
 
 client.download
@@ -11,8 +11,8 @@ client.download
     }
     // stream.pipeを利用するとダウンロードした画像が荒れるため、toBufferを使う
     stream.toBuffer(function (err, buffer) {
-      fs.writeFileSync(`${path}/${name}`, buffer, 'binary');
-    });
+      fs.writeFileSync(`${path}/${name}`, buffer, 'binary')
+    })
   })
   .on('error', (err) => {
     console.error(`${err.url} can't downloaded. ${err.message}`)
