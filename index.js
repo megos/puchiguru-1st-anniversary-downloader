@@ -3,8 +3,9 @@ const client = require('cheerio-httpcli')
 
 client.download
   .on('ready', (stream) => {
-    const path = `./images/${stream.url.href.replace(/.*\/(\w*?)\/(\w*?).png$/, '$1')}`
-    const name = stream.url.href.replace(/.*\/(\w*?)\/(\w*?).png$/, '$2.png')
+    const searchValue = /.*\/(\w*?)\/(\w*?).png$/
+    const path = `./images/${stream.url.href.replace(searchValue, '$1')}`
+    const name = stream.url.href.replace(searchValue, '$2.png')
     if (!fs.existsSync(path)) {
       fs.mkdirSync(path)
     }
