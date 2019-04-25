@@ -8,6 +8,7 @@ client.download
     if (!fs.existsSync(path)) {
       fs.mkdirSync(path)
     }
+    // stream.pipeを利用するとダウンロードした画像が荒れるため、toBufferを使う
     stream.toBuffer(function (err, buffer) {
       fs.writeFileSync(`${path}/${name}`, buffer, 'binary');
     });
@@ -18,12 +19,15 @@ client.download
 
 client.download.parallel = 1
 
+// 1周年記念オリジナル壁紙・SNSアイコン配布のページ
 client.fetch('https://lovelive-puchiguru.jp/campaign/5c81dedf.html')
   .then((result) => {
     result.$('.campaignDetail').find('a').each((idx, elm) => {
       const $elm = result.$(elm)
+      // 各リンクに遷移
       client.fetch($elm.attr('href'))
         .then((res) => {
+          // アイコンのダウンロード
           res.$('.img-responsive').download()
         })
     })
